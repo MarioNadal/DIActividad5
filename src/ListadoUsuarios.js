@@ -10,23 +10,34 @@ async function fetchUsuarios(url){
 
 function ListadoUsuarios(){
     const [loadedUsuarios, setLoadedUsuarios] = useState([]);
+     const [datosUsuario, setDatosUsuario] = useState("")
 
     useEffect(function () {
         fetchUsuarios(url).then((fetchedUsuarios) => setLoadedUsuarios(fetchedUsuarios));
     },)
-
+    
     return(
         <div>
             {loadedUsuarios.map((usuario) =>(
-                <p>{usuario.username}</p>
-            ))}
-            {loadedUsuarios.map((usuario) =>(
                 <ul key={usuario.id}>
-                    <li>{usuario.name}</li>
-                    <li>{usuario.phone}</li>
-                    <li>{usuario.email}</li>
+                    <div>
+                        <li>{usuario.username}</li>
+                        <button onClick={()=>{
+                            let id = usuario.id
+                            const mostrarDatosUsuario = loadedUsuarios.find((usuario) => usuario.id === id);
+                            setDatosUsuario(mostrarDatosUsuario)
+
+                            {datosUsuario && (
+                                <div>
+                                    <li>{usuario.name}</li>
+                                    <li>{usuario.phone}</li>
+                                    <li>{usuario.email}</li>
+                                </div>
+                            )}
+                        }}>Mostrar datos</button>
+                        </div>
                 </ul>
-            ))}
+        ))} 
         </div>
     );
 }
