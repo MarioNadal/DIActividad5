@@ -10,31 +10,29 @@ async function fetchUsuarios(url){
 
 function ListadoUsuarios(){
     const [loadedUsuarios, setLoadedUsuarios] = useState([]);
-     const [datosUsuario, setDatosUsuario] = useState("")
+    const [loadedUsuario, setLoadedUsuario] = useState("");
+    const [id, setId] = useState();
+    const url2 = "http://localhost:5000/users/"+id;
 
     useEffect(function () {
         fetchUsuarios(url).then((fetchedUsuarios) => setLoadedUsuarios(fetchedUsuarios));
-    },)
+    }, [])
     
+    useEffect(function() {
+        fetchUsuarios(url2).then((fetchUsuario) => setLoadedUsuario(fetchUsuario));
+    }, [id])
+
     return(
         <div>
             {loadedUsuarios.map((usuario) =>(
                 <ul key={usuario.id}>
                     <div>
-                        <li>{usuario.username}</li>
-                        <button onClick={()=>{
-                            let id = usuario.id
-                            const mostrarDatosUsuario = loadedUsuarios.find((usuario) => usuario.id === id);
-                            setDatosUsuario(mostrarDatosUsuario)
-
-                            {datosUsuario && (
-                                <div>
-                                    <li>{usuario.name}</li>
-                                    <li>{usuario.phone}</li>
-                                    <li>{usuario.email}</li>
-                                </div>
-                            )}
-                        }}>Mostrar datos</button>
+                        {usuario.username}
+                        <span> </span>
+                        <button onClick={()=>{setId(parseInt(usuario.id))}}>Mostrar datos</button>
+                        <ul>{loadedUsuario.name}</ul>
+                        <ul>{loadedUsuario.phone}</ul>
+                        <ul>{loadedUsuario.email}</ul>
                         </div>
                 </ul>
         ))} 
