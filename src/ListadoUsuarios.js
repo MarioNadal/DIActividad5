@@ -30,10 +30,14 @@ function ListadoUsuarios(){
                         {usuario.username}
                         <span> </span>
                         <button onClick={()=>{setId(parseInt(usuario.id))}}>Mostrar datos</button>
-                        <ul>{loadedUsuario.name}</ul>
-                        <ul>{loadedUsuario.phone}</ul>
-                        <ul>{loadedUsuario.email}</ul>
-                        </div>
+                        {loadedUsuario.id===usuario.id && (
+                            <div>
+                                <ul>{loadedUsuario.name}</ul>
+                                <ul>{loadedUsuario.phone}</ul>
+                                <ul>{loadedUsuario.email}</ul>
+                            </div>
+                            )}
+                    </div>
                 </ul>
         ))} 
         </div>
